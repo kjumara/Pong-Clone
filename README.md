@@ -84,7 +84,7 @@ This project is licensed under the [MIT License](LICENSE). Feel free to modify a
 
 ## Contact
 
-For any questions, feedback, or suggestions, feel free to reach out to me via [your contact info or GitHub profile]. I'd love to hear from you!
+For any questions, feedback, or suggestions, feel free to reach out to me! I'd love to hear from you!
 
 Enjoy the game and may the best player win! 🎮
 

@@ -1,0 +1,102 @@
+[gd_scene load_steps=13 format=3 uid="uid://c4v308lqoc1fx"]
+
+[ext_resource type="Script" path="res://Scripts/main_game.gd" id="1_fsrpg"]
+[ext_resource type="Texture2D" uid="uid://cmkhfycx74k83" path="res://Assets/Art/colors/background.png" id="1_nnj1n"]
+[ext_resource type="PackedScene" uid="uid://b4qbdwhfowt4c" path="res://Scenes/hud.tscn" id="2_5vt1p"]
+[ext_resource type="PackedScene" uid="uid://d4hpkwlmjjejq" path="res://Scenes/player.tscn" id="2_ts724"]
+[ext_resource type="PackedScene" uid="uid://cmid7egnbt01s" path="res://Scenes/enemy.tscn" id="3_dgmif"]
+[ext_resource type="Texture2D" uid="uid://dokn4nino8410" path="res://Assets/Art/divider.png" id="3_hr7vi"]
+[ext_resource type="PackedScene" uid="uid://qfvsn6hk5dmk" path="res://Scenes/ball.tscn" id="4_tbt21"]
+[ext_resource type="PackedScene" uid="uid://bwsisqrk6i8au" path="res://Scenes/wall.tscn" id="5_4y488"]
+[ext_resource type="AudioStream" uid="uid://siyohst71n55" path="res://Assets/Audio/point.ogg" id="9_bdwi6"]
+[ext_resource type="PackedScene" uid="uid://bmvn5ht3r1583" path="res://Scenes/power_up_spawner.tscn" id="10_72wx0"]
+[ext_resource type="AudioStream" uid="uid://bdmlvly0lxi06" path="res://Assets/Audio/power_up.wav" id="10_on8ey"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_srobx"]
+size = Vector2(100, 601)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_fsrpg")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="HUD" parent="UI" instance=ExtResource("2_5vt1p")]
+
+[node name="BG" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="Sprite2D" type="Sprite2D" parent="BG"]
+position = Vector2(480.5, 272)
+scale = Vector2(3.00312, 3.01111)
+texture = ExtResource("1_nnj1n")
+
+[node name="divider" type="Sprite2D" parent="BG"]
+position = Vector2(484.5, 269)
+scale = Vector2(0.80303, 0.948148)
+texture = ExtResource("3_hr7vi")
+
+[node name="Player" parent="." instance=ExtResource("2_ts724")]
+position = Vector2(34, 250)
+
+[node name="Ball" parent="." instance=ExtResource("4_tbt21")]
+z_index = 200
+position = Vector2(441, 207)
+
+[node name="Enemy" parent="." instance=ExtResource("3_dgmif")]
+position = Vector2(925, 250)
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Top_wall" parent="Walls" instance=ExtResource("5_4y488")]
+position = Vector2(485, 17)
+scale = Vector2(3.08185, 0.829161)
+
+[node name="Bottom_wall" parent="Walls" instance=ExtResource("5_4y488")]
+position = Vector2(483, 522)
+scale = Vector2(3.08185, 0.829161)
+
+[node name="Kill Areas" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Kill Areas"]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Kill Areas/Area2D"]
+position = Vector2(-53, 291)
+shape = SubResource("RectangleShape2D_srobx")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Kill Areas/Area2D"]
+position = Vector2(1013, 280)
+shape = SubResource("RectangleShape2D_srobx")
+
+[node name="EnemyMovementTimer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Point_Sound" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("9_bdwi6")
+volume_db = -20.0
+
+[node name="Power_Up_Sound" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("10_on8ey")
+
+[node name="PowerUpTimers" type="Node2D" parent="."]
+
+[node name="SpeedUpTimer" type="Timer" parent="PowerUpTimers"]
+wait_time = 5.0
+one_shot = true
+
+[node name="SlowDownTimer" type="Timer" parent="PowerUpTimers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="PowerUp_Spawner" parent="." instance=ExtResource("10_72wx0")]
+
+[connection signal="area_entered" from="Ball" to="." method="_on_ball_area_entered"]
+[connection signal="area_entered" from="Kill Areas/Area2D" to="." method="_on_killzone_area_entered"]
+[connection signal="timeout" from="EnemyMovementTimer" to="." method="_on_enemy_movement_timer_timeout"]
+[connection signal="timeout" from="PowerUpTimers/SpeedUpTimer" to="." method="_on_speed_up_timer_timeout"]
+[connection signal="timeout" from="PowerUpTimers/SlowDownTimer" to="." method="_on_slow_down_timer_timeout"]

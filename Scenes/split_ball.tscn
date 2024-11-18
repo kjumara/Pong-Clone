@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://f0kcocn27x8p"]
+
+[ext_resource type="Texture2D" uid="uid://dfmpkrchjrli0" path="res://Assets/Art/colors/split.png" id="1_r7v78"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_euxyq"]
+size = Vector2(24, 24)
+
+[node name="split_ball" type="Area2D" groups=["powerup", "split_ball"]]
+collision_layer = 16
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_r7v78")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_euxyq")

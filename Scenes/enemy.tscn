@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmid7egnbt01s"]
+
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_p2iet"]
+[ext_resource type="Texture2D" uid="uid://brd5j5ji1pets" path="res://Assets/Art/colors/otherColor.png" id="2_ss4i4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3lmv"]
+size = Vector2(18, 76)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_mask = 4
+script = ExtResource("1_p2iet")
+speed = 400
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4.54747e-13, 0)
+scale = Vector2(0.05625, 0.422222)
+texture = ExtResource("2_ss4i4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-2.71051e-20, 0)
+shape = SubResource("RectangleShape2D_s3lmv")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

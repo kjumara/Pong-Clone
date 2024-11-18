@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://i80fica26qmg"]
+
+[ext_resource type="Script" path="res://Scripts/end_screen.gd" id="1_jcywy"]
+[ext_resource type="Texture2D" uid="uid://cmkhfycx74k83" path="res://Assets/Art/colors/background.png" id="1_sny87"]
+[ext_resource type="FontFile" uid="uid://f6a8ttr6s7c7" path="res://Assets/Other/ARCADECLASSIC.TTF" id="2_xhtll"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hf5nv"]
+font = ExtResource("2_xhtll")
+font_size = 172
+font_color = Color(0.87451, 0.929412, 0.819608, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nijww"]
+font = ExtResource("2_xhtll")
+font_size = 100
+font_color = Color(0.87451, 0.929412, 0.819608, 1)
+
+[node name="End_Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jcywy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(481, 271)
+scale = Vector2(3.00625, 3.10556)
+texture = ExtResource("1_sny87")
+
+[node name="GameOver" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -480.0
+offset_right = 478.0
+offset_bottom = 229.0
+grow_horizontal = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_hf5nv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 206.0
+offset_right = 957.0
+offset_bottom = 418.0
+text = "SCORE 
+999
+"
+label_settings = SubResource("LabelSettings_nijww")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 233.0
+offset_top = 428.0
+offset_right = 726.0
+offset_bottom = 514.0
+theme_override_fonts/font = ExtResource("2_xhtll")
+theme_override_font_sizes/font_size = 40
+text = "Reset"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

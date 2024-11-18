@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwsisqrk6i8au"]
+
+[ext_resource type="Texture2D" uid="uid://brd5j5ji1pets" path="res://Assets/Art/colors/otherColor.png" id="1_lc5n3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bc25q"]
+size = Vector2(320, 10)
+
+[node name="Wall" type="Area2D"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2.38419e-07)
+scale = Vector2(1, 0.0555556)
+texture = ExtResource("1_lc5n3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_bc25q")
